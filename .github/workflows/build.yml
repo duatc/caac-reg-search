@@ -22,7 +22,9 @@ jobs:
           pip install -r requirements.txt
 
       - name: Build index
-        run: python build_index.py
+        run: |
+          python build_index.py 2>&1
+        shell: cmd
 
       - name: Build executable
         run: pyinstaller CAAC-RegSearch.spec --noconfirm

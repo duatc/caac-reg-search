@@ -29,6 +29,8 @@ for f in os.listdir(DATA_DIR):
     print(f"  加载: {f}")
 
 tokenized = [tokenize(d["content"]) for d in docs]
+print(f"共 {len(tokenized)} 篇文档")
+
 bm25 = BM25Okapi(tokenized)
 
 # 保存
