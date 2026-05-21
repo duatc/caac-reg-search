@@ -17,14 +17,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: |
-          pip install pyinstaller pyinstaller-arm64-packaging
-          pip install -r requirements.txt
-
-      - name: Build index
-        run: |
-          python build_index.py 2>&1
-        shell: cmd
+        run: pip install pyinstaller pyinstaller-arm64-packaging && pip install -r requirements.txt
 
       - name: Build executable
         run: pyinstaller CAAC-RegSearch.spec --noconfirm
