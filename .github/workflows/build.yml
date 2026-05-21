@@ -1,0 +1,34 @@
+name: Build Windows Executable
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pyinstaller pyinstaller-arm64-packaging
+          pip install -r requirements.txt
+
+      - name: Build index
+        run: python build_index.py
+
+      - name: Build executable
+        run: pyinstaller CAAC-RegSearch.spec --noconfirm
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CAAC-RegSearch-Windows
+          path: dist/CAAC-RegSearch.exe
